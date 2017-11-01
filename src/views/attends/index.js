@@ -13,6 +13,8 @@ import AddIcon from 'material-ui-icons/Add';
 import Beers from 'views/attends/beers';
 import AddItem from 'views/attends/addItem';
 
+import connect from 'views/milflux/connect';
+
 const styles = theme => ({
   card: {
     margin: 'auto',
@@ -32,55 +34,23 @@ const styles = theme => ({
 
 class Attends extends React.Component {
 
+  static propTypes = {
+    classes: PropTypes.object.isRequired,
+  }
+
   state = {
     open: false,
-    attend: { beers: [] },
-  };
+  }
 
   openAddSection = () => {
     this.setState({ open: true });
   }
 
-  updateState = (attend) => {
-    this.setState({
-      ...this.state,
-      attend,
-    })
-  }
-
-  remove = (beerId) => {
-    console.log(beerId);
-    const { attend } = this.state;
-    attend.beers = attend.beers.filter(beer => beer.id !== beerId);
-    window.localforage.setItem('attend', attend).then(
-      () => {
-        this.updateState(attend);
-      }
-    )
-  }
-
-  addBeer = (beer) => {
-    const { attend } = this.state;
-    console.warn(attend, beer);
-    attend.beers.push({ ...beer, order: attend.beers.length });
-    window.localforage.setItem('attend', attend).then(
-      () => {
-        this.updateState({ ...attend, id: window.uuid() });
-      }
-    )
-  }
-
-  componentDidMount() {
-    window.localforage.getItem('attend').then(attend =>
-      this.updateState(attend)
-    );
-  }
-
   render() {
-    const { classes } = this.props;
-    const { open, attend } = this.state;
+    const { classes, attend } = this.props;
+    const { open } = this.state;
 
-    const addItem = (open)? (<AddItem save={this.addBeer} />): null;
+    const addItem = (open)? (<AddItem />): null;
 
     return (
       <div>
@@ -129,8 +99,4 @@ class Attends extends React.Component {
   }
 }
 
-Attends.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(Attends);
+export default connect(withStyles(styles)(Attends));

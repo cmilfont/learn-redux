@@ -18,7 +18,8 @@ const styles = theme => ({
 class Beer extends Component {
 
   render() {
-    const { beer, classes, remove } = this.props;
+    const { beer, classes } = this.props;
+    
     return (
       <ListItem
         onMouseOver={this.show}
@@ -28,7 +29,7 @@ class Beer extends Component {
         <Avatar alt={beer.name} src={beer.photoUrl} />
         <ListItemText className={classes.beer} primary={beer.name} secondary={beer.description} />
         <ListItemText className={classes.beer} primary={beer.qty} />
-        <Toolbar beerId={beer.id} remove={remove} />
+        <Toolbar beerId={beer.id} />
       </ListItem>
     );
   }

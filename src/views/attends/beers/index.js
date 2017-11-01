@@ -14,10 +14,10 @@ const styles = theme => ({
 class Beers extends React.Component {
 
   render() {
-    const { classes, beers, remove } = this.props;
+    const { classes, beers } = this.props;
 
     const list = beers.sort((a, b) => (a.order - b.order)).map(beer => (
-      <Beer key={`beer_${beer.id}`} beer={beer} remove={remove} />
+      <Beer key={`beer_${beer.id}`} beer={beer} />
     ));
     return (
       <div className={classes.root}>

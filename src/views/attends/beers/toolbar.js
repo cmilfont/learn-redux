@@ -6,6 +6,7 @@ import ArrowDropUp from 'material-ui-icons/ArrowDropUp';
 import ArrowDropDown from 'material-ui-icons/ArrowDropDown';
 import Delete from 'material-ui-icons/Delete';
 import Edit from 'material-ui-icons/Edit';
+import connect from 'views/milflux/connect';
 
 const styles = theme => ({
   order: {
@@ -14,7 +15,7 @@ const styles = theme => ({
   }
 });
 
-class Order extends Component {
+class Toolbar extends Component {
 
   orderUp = () => {
   }
@@ -23,15 +24,17 @@ class Order extends Component {
   }
 
   remove = () => {
-    this.props.remove(this.props.beerId);
+    const { remove, beerId } = this.props;
+    debugger
+    remove(beerId);
   }
 
   edit = () => {
   }
 
   render() {
-    const { classes } = this.props;
-
+    const { classes, beerId } = this.props;
+//debugger;
     return (
       <div className={classes.order}>
         <ListItemIcon>
@@ -51,4 +54,4 @@ class Order extends Component {
   }
 }
 
-export default withStyles(styles)(Order);
+export default connect(withStyles(styles)(Toolbar));

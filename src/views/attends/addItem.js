@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
-import AddIcon from 'material-ui-icons/Add';
 import ModeEditIcon from 'material-ui-icons/ModeEdit';
 import TextField from 'material-ui/TextField';
-import Input, { InputLabel } from 'material-ui/Input';
-import { FormControl, FormHelperText } from 'material-ui/Form';
+import { InputLabel } from 'material-ui/Input';
+import { FormControl } from 'material-ui/Form';
 import Select from 'react-select';
 
 const styles = theme => ({
@@ -35,6 +34,10 @@ const styles = theme => ({
 
 class AddItem extends Component {
 
+  static contextTypes = {
+    save: PropTypes.func,
+  }
+
   state = {
     beer: '',
     qty: '',
@@ -60,7 +63,7 @@ class AddItem extends Component {
 
   create = () => {
     const { data: { id, name, description, photoUrl }, qty } = this.state;
-    this.props.save({ qty, id, name, description, photoUrl });
+    this.context.save({ qty, id, name, description, photoUrl });
   }
 
 

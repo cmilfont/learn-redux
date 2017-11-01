@@ -3,7 +3,7 @@ import Home from 'views/home';
 import Attends from 'views/attends';
 import uuid from 'uuid';
 import localforage from 'localforage';
-
+import Store from 'views/milflux/store';
 
 localforage.config({
     driver      : localforage.INDEXEDDB,
@@ -20,7 +20,9 @@ class App extends Component {
     return (
       <div className="App">
         <Home>
-          <Attends />
+          <Store>
+            <Attends />
+          </Store>
         </Home>
       </div>
     );
