@@ -38,14 +38,16 @@ class AddItem extends Component {
   state = {
     beer: '',
     qty: '',
+    data: {},
   }
 
-  changeOrigem = (selected) => {
-    console.log("Selected origem: " + JSON.stringify(selected));
+  changeOrigem = (data) => {
+    console.log("Selected origem: " + JSON.stringify(data));
 
     this.setState({
       ...this.state,
-      beer: selected.value,
+      data,
+      beer: data.value,
     });
   }
 
@@ -57,39 +59,20 @@ class AddItem extends Component {
   };
 
   create = () => {
-    console.log(this.state);
+    const { data: { id, name, description, photoUrl }, qty } = this.state;
+    this.props.save({ qty, id, name, description, photoUrl });
   }
 
 
   getOptions = (input, callback) => {
-    setTimeout(function() {
-      console.log('input', input);
-      callback(null, {
-        options: [
-          {
-            value: 1,
-            label: 'Abyssal',
-          },
-          {
-            value: 2,
-            label: 'Hop Madness',
-          },
-          {
-            value: 3,
-            label: 'Wit 5 Bier',
-          },
-          {
-            value: 4,
-            label: 'Hopsession',
-          },
-          {
-            value: 5,
-            label: 'Davi e Golias',
-          }
-        ],
-        complete: true
-      });
-    }, 500);
+    window.localforage
+      .getItem('beers')
+      .then(options =>
+        callback(null, {
+          complete: true,
+          options,
+        })
+      );
   }
 
   render() {

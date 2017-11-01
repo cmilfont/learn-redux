@@ -32,17 +32,55 @@ const styles = theme => ({
 
 class Attends extends React.Component {
 
-  state = { open: false };
+  state = {
+    open: false,
+    attend: { beers: [] },
+  };
 
   openAddSection = () => {
     this.setState({ open: true });
   }
 
+  updateState = (attend) => {
+    this.setState({
+      ...this.state,
+      attend,
+    })
+  }
+
+  remove = (beerId) => {
+    console.log(beerId);
+    const { attend } = this.state;
+    attend.beers = attend.beers.filter(beer => beer.id !== beerId);
+    window.localforage.setItem('attend', attend).then(
+      () => {
+        this.updateState(attend);
+      }
+    )
+  }
+
+  addBeer = (beer) => {
+    const { attend } = this.state;
+    console.warn(attend, beer);
+    attend.beers.push({ ...beer, order: attend.beers.length });
+    window.localforage.setItem('attend', attend).then(
+      () => {
+        this.updateState({ ...attend, id: window.uuid() });
+      }
+    )
+  }
+
+  componentDidMount() {
+    window.localforage.getItem('attend').then(attend =>
+      this.updateState(attend)
+    );
+  }
+
   render() {
     const { classes } = this.props;
-    const { open } = this.state;
+    const { open, attend } = this.state;
 
-    const addItem = (open)? (<AddItem />): null;
+    const addItem = (open)? (<AddItem save={this.addBeer} />): null;
 
     return (
       <div>
@@ -53,17 +91,17 @@ class Attends extends React.Component {
                 5
               </Avatar>
             }
-            title="Cervejaria 5Elementos"
-            subheader="31 de outubro de 2017"
+            title={attend.brewery}
+            subheader={attend.date}
           />
           <CardMedia
             className={classes.media}
-            image={`${process.env.PUBLIC_URL}/images/IMG_20170127_203432980.jpg`}
-            title="Cervejaria 5Elementos"
+            image={`${process.env.PUBLIC_URL}/images/${attend.photoUrl}`}
+            title={attend.brewery}
           />
           <CardContent>
             <Typography component="p">
-              Av. Cel. José Philomeno Gomes, 1152 - Eng. Luciano Cavalcante, Fortaleza - CE, 60811-170
+              {attend.address}
             </Typography>
           </CardContent>
           <CardActions disableActionSpacing>
@@ -80,7 +118,10 @@ class Attends extends React.Component {
           </CardActions>
           <CardContent>
             {addItem}
-            <Beers />
+            <Beers
+              beers={attend.beers}
+              remove={this.remove}
+            />
           </CardContent>
         </Card>
       </div>
