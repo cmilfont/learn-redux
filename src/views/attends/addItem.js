@@ -7,6 +7,7 @@ import TextField from 'material-ui/TextField';
 import { InputLabel } from 'material-ui/Input';
 import { FormControl } from 'material-ui/Form';
 import Select from 'react-select';
+import connect from 'views/milflux/connect';
 
 const styles = theme => ({
   formControl: {
@@ -34,10 +35,6 @@ const styles = theme => ({
 
 class AddItem extends Component {
 
-  static contextTypes = {
-    save: PropTypes.func,
-  }
-
   state = {
     beer: '',
     qty: '',
@@ -45,8 +42,6 @@ class AddItem extends Component {
   }
 
   changeOrigem = (data) => {
-    console.log("Selected origem: " + JSON.stringify(data));
-
     this.setState({
       ...this.state,
       data,
@@ -63,7 +58,7 @@ class AddItem extends Component {
 
   create = () => {
     const { data: { id, name, description, photoUrl }, qty } = this.state;
-    this.context.save({ qty, id, name, description, photoUrl });
+    this.props.dispatch({ qty, id, name, description, photoUrl });
   }
 
 
@@ -120,4 +115,4 @@ class AddItem extends Component {
   }
 }
 
-export default withStyles(styles)(AddItem);
+export default connect(withStyles(styles)(AddItem));

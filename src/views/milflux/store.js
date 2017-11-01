@@ -4,9 +4,8 @@ import PropTypes from 'prop-types';
 class Store extends Component {
 
   static childContextTypes = {
-    attend: PropTypes.object,
-    remove: PropTypes.func,
-    save: PropTypes.func,
+    data: PropTypes.object,
+    dispatch: PropTypes.func,
   }
 
   state = {
@@ -15,10 +14,13 @@ class Store extends Component {
 
   getChildContext() {
     return {
-      remove: this.remove,
-      attend: this.state.attend,
-      save: this.addBeer,
+      dispatch: this.dispatch,
+      data: { attend: this.state.attend },
     };
+  }
+
+  dispatch = action => {
+    console.log(action);
   }
 
   updateState = (attend) => {

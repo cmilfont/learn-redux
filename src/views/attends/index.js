@@ -47,7 +47,7 @@ class Attends extends React.Component {
   }
 
   render() {
-    const { classes, attend } = this.props;
+    const { classes, data: { attend } } = this.props;
     const { open } = this.state;
 
     const addItem = (open)? (<AddItem />): null;
@@ -90,7 +90,6 @@ class Attends extends React.Component {
             {addItem}
             <Beers
               beers={attend.beers}
-              remove={this.remove}
             />
           </CardContent>
         </Card>

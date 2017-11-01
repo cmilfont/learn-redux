@@ -24,9 +24,9 @@ class Toolbar extends Component {
   }
 
   remove = () => {
-    const { remove, beerId } = this.props;
+    const { dispatch, beerId } = this.props;
     debugger
-    remove(beerId);
+    dispatch(beerId);
   }
 
   edit = () => {
