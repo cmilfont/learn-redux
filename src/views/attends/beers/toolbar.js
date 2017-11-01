@@ -18,23 +18,39 @@ const styles = theme => ({
 class Toolbar extends Component {
 
   orderUp = () => {
+    const { dispatch, beerId } = this.props;
+    dispatch({
+      type: 'ORDER_UP',
+      payload: beerId,
+    });
   }
 
   orderDown = () => {
+    const { dispatch, beerId } = this.props;
+    dispatch({
+      type: 'ORDER_DOWN',
+      payload: beerId,
+    });
   }
 
   remove = () => {
     const { dispatch, beerId } = this.props;
-    debugger
-    dispatch(beerId);
+    dispatch({
+      type: 'REMOVE',
+      payload: beerId,
+    });
   }
 
   edit = () => {
+    const { dispatch, beerId } = this.props;
+    dispatch({
+      type: 'EDIT',
+      payload: beerId,
+    });
   }
 
   render() {
     const { classes, beerId } = this.props;
-//debugger;
     return (
       <div className={classes.order}>
         <ListItemIcon>

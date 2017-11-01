@@ -58,7 +58,10 @@ class AddItem extends Component {
 
   create = () => {
     const { data: { id, name, description, photoUrl }, qty } = this.state;
-    this.props.dispatch({ qty, id, name, description, photoUrl });
+    this.props.dispatch({
+      type: 'SAVE',
+      payload: { qty, id, name, description, photoUrl },
+    });
   }
 
 

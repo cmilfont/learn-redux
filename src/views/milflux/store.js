@@ -20,7 +20,16 @@ class Store extends Component {
   }
 
   dispatch = action => {
-    console.log(action);
+    console.warn(action);
+
+    if (action.type === 'SAVE') {
+      this.addBeer(action.payload);
+    }
+
+    if (action.type === 'REMOVE') {
+      this.remove(action.payload);
+    }
+
   }
 
   updateState = (attend) => {
