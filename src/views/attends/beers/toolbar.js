@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import { ListItemIcon } from 'material-ui/List';
 import ArrowDropUp from 'material-ui-icons/ArrowDropUp';
@@ -50,7 +49,7 @@ class Toolbar extends Component {
   }
 
   render() {
-    const { classes, beerId } = this.props;
+    const { classes } = this.props;
     return (
       <div className={classes.order}>
         <ListItemIcon>
@@ -70,4 +69,4 @@ class Toolbar extends Component {
   }
 }
 
-export default connect(withStyles(styles)(Toolbar));
+export default connect(null, withStyles(styles)(Toolbar));

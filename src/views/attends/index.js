@@ -47,7 +47,7 @@ class Attends extends React.Component {
   }
 
   render() {
-    const { classes, data: { attend } } = this.props;
+    const { classes, attend } = this.props;
     const { open } = this.state;
 
     const addItem = (open)? (<AddItem />): null;
@@ -98,4 +98,11 @@ class Attends extends React.Component {
   }
 }
 
-export default connect(withStyles(styles)(Attends));
+const mapStateToProps = (state) => {
+
+  return {
+    attend: state.attend,
+  }
+}
+
+export default connect(mapStateToProps, withStyles(styles)(Attends));

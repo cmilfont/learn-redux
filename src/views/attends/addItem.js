@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Button from 'material-ui/Button';
 import ModeEditIcon from 'material-ui-icons/ModeEdit';
@@ -118,4 +117,4 @@ class AddItem extends Component {
   }
 }
 
-export default connect(withStyles(styles)(AddItem));
+export default connect(null, withStyles(styles)(AddItem));

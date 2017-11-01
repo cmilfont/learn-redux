@@ -10,15 +10,16 @@ class Wrapper extends Component {
 
   render() {
     const { data, dispatch } = this.context;
-    const { component, ...originalProps } = this.props;
-    const props = { data, dispatch, ...originalProps };
+    const { component, mapping, ...originalProps } = this.props;
+    const defaultProps = mapping? mapping(data): null;
+    const props = { ...defaultProps, dispatch, ...originalProps };
     return React.createElement(component, props);
   }
 }
 
-const connect = (component) => (
+const connect = (mapping, component) => (
   (originalProps) => (
-    <Wrapper component={component} {...originalProps} />
+    <Wrapper mapping={mapping} component={component} {...originalProps} />
   )
 );
 
